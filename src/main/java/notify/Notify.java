@@ -5,6 +5,7 @@ import java.util.List;
 
 import notify.jre6.Jre6Notifier;
 import notify.osd.OsdNotifier;
+import notify.snarl.SnarlNotifier;
 
 /**
  * To use from java<br>
@@ -20,7 +21,7 @@ public class Notify implements Notifier {
 
     private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), // new
 										 // GrowlNotifier("notify"),
-	    new Jre6Notifier());
+	    new SnarlNotifier(), new Jre6Notifier());
 
     public static Notify getInstance() {
 	if (instance == null) {
