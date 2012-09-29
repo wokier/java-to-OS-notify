@@ -17,13 +17,13 @@ public class Jre6NotifierTest {
     @Test
     public void testNotifyMessageTypeStringString() throws Exception {
 	jre6Notifier.notify(MessageType.NONE, "NONE", "none");
-	Thread.sleep(2000);
+	Thread.sleep(6000);
 	jre6Notifier.notify(MessageType.INFO, "INFO", "info");
-	Thread.sleep(2000);
+	Thread.sleep(6000);
 	jre6Notifier.notify(MessageType.WARNING, "WARNING", "warning");
-	Thread.sleep(2000);
+	Thread.sleep(6000);
 	jre6Notifier.notify(MessageType.ERROR, "ERROR", "error");
-	Thread.sleep(2000);
+	Thread.sleep(6000);
     }
 
 }

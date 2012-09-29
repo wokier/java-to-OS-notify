@@ -34,12 +34,23 @@ public class Jre6Notifier implements Notifier {
     @Override
     public void notify(MessageType messageType, String title, String message) {
 	try {
-	    SystemTray systemTray = SystemTray.getSystemTray();
+	    final SystemTray systemTray = SystemTray.getSystemTray();
 	    String imageName = messageType.name().toLowerCase() + ".png";
 	    Image image = Toolkit.getDefaultToolkit().createImage(readImage(imageName));
-	    TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+	    final TrayIcon trayIcon = new TrayIcon(image, title);
 	    systemTray.add(trayIcon);
 	    trayIcon.displayMessage(title, message, TrayIcon.MessageType.valueOf(messageType.name()));
+	    new Thread(new Runnable() {
+		@Override
+		public void run() {
+		    try {
+			Thread.sleep(5000);
+		    } catch (InterruptedException e) {
+			// ignore
+		    }
+		    systemTray.remove(trayIcon);
+		}
+	    }).start();
 	} catch (Exception e) {
 	    throw new UnableToNotifyException("Unable to notify with java", e);
 	}
