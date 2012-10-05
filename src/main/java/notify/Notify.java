@@ -3,6 +3,7 @@ package notify;
 import java.util.Arrays;
 import java.util.List;
 
+import notify.growl.GrowlNotifier;
 import notify.jre6.Jre6Notifier;
 import notify.osd.OsdNotifier;
 import notify.snarl.SnarlNotifier;
@@ -19,9 +20,7 @@ public class Notify implements Notifier {
 
     private static Notify instance;
 
-    private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), // new
-										 // GrowlNotifier("notify"),
-	    new SnarlNotifier(), new Jre6Notifier());
+    private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), new GrowlNotifier(), new SnarlNotifier(), new Jre6Notifier());
 
     public static Notify getInstance() {
 	if (instance == null) {

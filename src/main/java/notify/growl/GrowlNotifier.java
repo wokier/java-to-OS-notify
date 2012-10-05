@@ -11,25 +11,22 @@ import notify.UnableToNotifyException;
 /**
  * Notify with Growl using AppleScript and Java Script engine.
  * 
- * @see http
- *      ://www.jayway.com/2011/04/12/send-growl-notifications-on-os-x-using-a
- *      -java-6-script-engine-and-applescript/
+ * @see http ://www.jayway.com/2011/04/12/send-growl-notifications-on-os-x-using-a -java-6-script-engine-and-applescript/
  * 
- * @author Tobias Södergren, Jayway
+ * @author Tobias S??dergren, Jayway
  * @author francois wauquier
  */
 public class GrowlNotifier implements Notifier {
 
     private static final String GROWL_APPLICATION = "GrowlHelperApp";
 
-    private final String applicationName;
+    private static final String APPLICATION_NAME = "NOTIFY";
 
     private ScriptEngine appleScriptEngine;
 
     private boolean registered;
 
-    public GrowlNotifier(String applicationName) {
-	this.applicationName = applicationName;
+    public GrowlNotifier() {
 	this.appleScriptEngine = createScriptEngine();
     }
 
@@ -41,19 +38,34 @@ public class GrowlNotifier implements Notifier {
 
     public void registerApplication(String[] notifications) throws ScriptException {
 	String script = script().add("tell application ").quote(GROWL_APPLICATION).nextRow("set the availableList to ").array(notifications).nextRow("set the enabledList to ").array(notifications)
-		.nextRow("register as application ").quote(applicationName).add(" all notifications availableList default notifications enabledList").nextRow("end tell").get();
+		.nextRow("register as application ").quote(APPLICATION_NAME).add(" all notifications availableList default notifications enabledList").nextRow("end tell").get();
 	executeScript(script);
     }
 
     @Override
     public boolean isSupported() {
+	registerIfNecessary();
 	return appleScriptEngine != null && isGrowlEnabled();
     }
 
     @Override
     public void notify(MessageType messageType, String title, String message) {
 	registerIfNecessary();
-	notify(messageType.name(), title, message);
+	notify(messageType.name(), prefix(messageType) + title, message);
+    }
+
+    private String prefix(MessageType messageType) {
+	switch (messageType) {
+	case NONE:
+	    return "";
+	case INFO:
+	    return "? ";
+	case WARNING:
+	    return "? ";
+	case ERROR:
+	    return "? ";
+	}
+	return null;
     }
 
     private void registerIfNecessary() {
@@ -72,7 +84,7 @@ public class GrowlNotifier implements Notifier {
 
     public void notify(String notificationName, String title, String message) {
 	String script = script().add("tell application ").quote(GROWL_APPLICATION).nextRow("notify with name ").quote(notificationName).add(" title ").quote(title).add(" description ").quote(message)
-		.add(" application name ").quote(applicationName).nextRow("end tell").get();
+		.add(" application name ").quote(APPLICATION_NAME).nextRow("end tell").get();
 	try {
 	    executeScript(script);
 	} catch (ScriptException e) {
