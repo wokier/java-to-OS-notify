@@ -12,7 +12,7 @@ public class SnarlNotifier implements Notifier {
     @Override
     public boolean isSupported() {
 	try {
-	    SnarlNetworkBridge.snRegisterConfig(APPLICATION_NAME, "localhost");
+	    SnarlNetworkBridge.snRegisterConfigIfNecessary(APPLICATION_NAME, "localhost");
 	    return true;
 	} catch (Exception e) {
 	    return false;

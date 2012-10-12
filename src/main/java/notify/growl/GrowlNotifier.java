@@ -44,7 +44,11 @@ public class GrowlNotifier implements Notifier {
 
     @Override
     public boolean isSupported() {
-	registerIfNecessary();
+	try {
+	    registerIfNecessary();
+	} catch (IllegalStateException e) {
+	    return false;
+	}
 	return appleScriptEngine != null && isGrowlEnabled();
     }
 

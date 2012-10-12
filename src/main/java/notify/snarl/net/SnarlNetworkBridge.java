@@ -57,45 +57,40 @@ public class SnarlNetworkBridge {
      *            the application name
      * @param host
      *            the host to connect to
-     * @return a message containing the reply of Snarl or null if an error
-     *         occurs
+     * @return a message containing the reply of Snarl or null if an error occurs
      */
-    static public Message snRegisterConfig(String applicationName, String host) throws Error {
-	if (snarlIsRegisterd) {
-	    throw new Error("You have to unreister " + applicationName + " first.");
-	}
-	appName.setValue(applicationName);
-	try {
-	    sock = new Socket(InetAddress.getByName(host), 9887);
-	    out = new PrintWriter(sock.getOutputStream(), true);
-	    in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+    public static void snRegisterConfigIfNecessary(String applicationName, String host) {
+	if (!snarlIsRegisterd) {
+	    appName.setValue(applicationName);
+	    try {
+		sock = new Socket(InetAddress.getByName(host), 9887);
+		out = new PrintWriter(sock.getOutputStream(), true);
+		in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
-	    new Thread("SnarlNetworkBridgeListener") {
-		public void run() {
-		    SnarlNetworkBridge.listen();
-		};
-	    }.start();
-	    snarlIsRegisterd = true;
-	    snarlIsRunning = true;
-	} catch (ConnectException e) {
-	    snarlIsRunning = false;
-	    throw new RuntimeException("Snarl is not running");
-	} catch (UnknownHostException e) {
-	    snarlIsRunning = false;
-	    System.out.println("Host not reachable");
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	Message msg = send(new Message("register", appName));
+		new Thread("SnarlNetworkBridgeListener") {
+		    public void run() {
+			SnarlNetworkBridge.listen();
+		    };
+		}.start();
+		snarlIsRegisterd = true;
+		snarlIsRunning = true;
+	    } catch (ConnectException e) {
+		snarlIsRunning = false;
+		throw new RuntimeException("Snarl is not running");
+	    } catch (UnknownHostException e) {
+		snarlIsRunning = false;
+		throw new RuntimeException("Host not reachable");
+	    } catch (IOException e) {
+		throw new RuntimeException("IO Exception");
+	    }
+	    Message msg = send(new Message("register", appName));
 
-	snarlIsRegisterd = snarlIsRunning = msg != null && msg.getReply() != Reply.SNP_ERROR_NOT_RUNNING;
-	return msg;
+	    snarlIsRegisterd = snarlIsRunning = msg != null && msg.getReply() != Reply.SNP_ERROR_NOT_RUNNING;
+	}
     }
 
     /**
-     * Register a new alert class to Snarl displayname and alert name are the
-     * same
+     * Register a new alert class to Snarl displayname and alert name are the same
      * 
      * @param title
      *            the title representing the Alert
@@ -213,8 +208,7 @@ public class SnarlNetworkBridge {
     /**
      * Returns a boolean value representing the Snarl running Status
      * 
-     * @return true if Snarl is running and listening to network Connections
-     *         otherwise false
+     * @return true if Snarl is running and listening to network Connections otherwise false
      */
     public static boolean snIsRunnging() {
 	return snarlIsRunning;

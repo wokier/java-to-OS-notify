@@ -30,3 +30,11 @@ Work in progress :
 
  - MacOsX Notification Center
  
+ 
+---
+
+Release Notes :
+
+ - 0.2 2012-10-12 Bug fixes for Growl and Snarl
+ - 0.1 2012-10-05 First Release with 4 different notifiers
+
