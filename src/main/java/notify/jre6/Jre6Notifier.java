@@ -28,6 +28,8 @@ public class Jre6Notifier implements Notifier {
 	    return SystemTray.isSupported();
 	} catch (ClassNotFoundException e) {
 	    return false;
+	} catch (NoClassDefFoundError e) {
+	    return false;
 	}
     }
 
