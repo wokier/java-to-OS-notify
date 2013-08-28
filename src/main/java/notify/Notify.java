@@ -22,7 +22,9 @@ public class Notify implements Notifier {
 
 	private static Notify instance;
 
-	private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), new GrowlNotifier(), new MacOsXNotifier(), new SnarlNotifier(), new Jre6Notifier(), new LoggerNotifier());
+	private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), new GrowlNotifier(), new MacOsXNotifier(), new SnarlNotifier(), new Jre6Notifier());
+
+    private  LoggerNotifier loggerNotifier = new LoggerNotifier();
 
 	public static synchronized Notify getInstance() {
 		if (instance == null) {
@@ -45,10 +47,10 @@ public class Notify implements Notifier {
 		for (Notifier notifier : potentialNotifiers) {
 			if (notifier.isSupported()) {
 				notifier.notify(messageType, title, message);
-				return;
+				break;
 			}
 		}
-		throw new UnableToNotifyException("Not any notifier supported");
+        loggerNotifier.notify(messageType,title,message);
 	}
 
 	public static void notify(String title, String message) {
