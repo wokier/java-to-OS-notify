@@ -2,6 +2,10 @@ java-to-OS-notify
 =================
 
 Java to Operating System Notification
+
+"Write Once, Notify Everywhere"
+-------------------------------
+
 Allows to display a notification which pops and disappears, using the appropriate notification system.
 
 ---
