@@ -6,6 +6,7 @@ import java.util.List;
 import notify.growl.GrowlNotifier;
 import notify.jre6.Jre6Notifier;
 import notify.logger.LoggerNotifier;
+import notify.macosxcenter.MacOsXNotifier;
 import notify.osd.OsdNotifier;
 import notify.snarl.SnarlNotifier;
 
@@ -19,52 +20,52 @@ import notify.snarl.SnarlNotifier;
  */
 public class Notify implements Notifier {
 
-    private static Notify instance;
+	private static Notify instance;
 
-    private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), new GrowlNotifier(), new SnarlNotifier(), new Jre6Notifier(), new LoggerNotifier());
+	private List<Notifier> potentialNotifiers = Arrays.asList(new OsdNotifier(), new GrowlNotifier(), new MacOsXNotifier(), new SnarlNotifier(), new Jre6Notifier(), new LoggerNotifier());
 
-    public static synchronized Notify getInstance() {
-	if (instance == null) {
-	    instance = new Notify();
+	public static synchronized Notify getInstance() {
+		if (instance == null) {
+			instance = new Notify();
+		}
+		return instance;
 	}
-	return instance;
-    }
 
-    private Notify() {
-	super();
-    }
-
-    @Override
-    public boolean isSupported() {
-	return true;
-    }
-
-    @Override
-    public void notify(MessageType messageType, String title, String message) {
-	for (Notifier notifier : potentialNotifiers) {
-	    if (notifier.isSupported()) {
-		notifier.notify(messageType, title, message);
-		return;
-	    }
+	private Notify() {
+		super();
 	}
-	throw new UnableToNotifyException("Not any notifier supported");
-    }
 
-    public static void notify(String title, String message) {
-	getInstance().notify(MessageType.NONE, title, message);
-    }
+	@Override
+	public boolean isSupported() {
+		return true;
+	}
 
-    public static void info(String title, String message) {
-	getInstance().notify(MessageType.INFO, title, message);
-    }
+	@Override
+	public void notify(MessageType messageType, String title, String message) {
+		for (Notifier notifier : potentialNotifiers) {
+			if (notifier.isSupported()) {
+				notifier.notify(messageType, title, message);
+				return;
+			}
+		}
+		throw new UnableToNotifyException("Not any notifier supported");
+	}
 
-    public static void warn(String title, String message) {
-	getInstance().notify(MessageType.WARNING, title, message);
+	public static void notify(String title, String message) {
+		getInstance().notify(MessageType.NONE, title, message);
+	}
 
-    }
+	public static void info(String title, String message) {
+		getInstance().notify(MessageType.INFO, title, message);
+	}
 
-    public static void error(String title, String message) {
-	getInstance().notify(MessageType.ERROR, title, message);
-    }
+	public static void warn(String title, String message) {
+		getInstance().notify(MessageType.WARNING, title, message);
+
+	}
+
+	public static void error(String title, String message) {
+		getInstance().notify(MessageType.ERROR, title, message);
+	}
 
 }
