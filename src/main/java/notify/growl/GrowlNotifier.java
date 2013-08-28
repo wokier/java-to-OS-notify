@@ -7,6 +7,7 @@ import javax.script.ScriptException;
 import notify.MessageType;
 import notify.Notifier;
 import notify.UnableToNotifyException;
+import notify.internal.BaseNotifier;
 
 /**
  * Notify with Growl using AppleScript and Java Script engine.
@@ -16,7 +17,7 @@ import notify.UnableToNotifyException;
  * @author Tobias S??dergren, Jayway
  * @author francois wauquier
  */
-public class GrowlNotifier implements Notifier {
+public class GrowlNotifier extends BaseNotifier implements Notifier {
 
 	private static final String GROWL_APPLICATION = "com.Growl.GrowlHelperApp";
 
@@ -65,21 +66,7 @@ public class GrowlNotifier implements Notifier {
 		notify(messageType.name(), prefix(messageType) + title, message);
 	}
 
-	private String prefix(MessageType messageType) {
-		switch (messageType) {
-		case NONE:
-			return "";
-		case INFO:
-			return "! ";
-		case WARNING:
-			return "∆ ";
-		case ERROR:
-			return "☠ ";
-		}
-		return null;
-	}
-
-	private void registerIfNecessary() {
+    private void registerIfNecessary() {
 		if (!registered) {
 			if (appleScriptEngine == null) {
 				throw new IllegalStateException("You are trying to notify with Growl on a non-supported OS");

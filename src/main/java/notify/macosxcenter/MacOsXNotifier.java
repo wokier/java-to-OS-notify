@@ -3,6 +3,7 @@ package notify.macosxcenter;
 import notify.MessageType;
 import notify.Notifier;
 import notify.UnableToNotifyException;
+import notify.internal.BaseNotifier;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author francois wauquier
  */
-public class MacOsXNotifier implements Notifier {
+public class MacOsXNotifier extends BaseNotifier implements Notifier {
 
     private static final String TERMINAL_NOTIFIER_COMMAND = "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier";
 
@@ -42,17 +43,4 @@ public class MacOsXNotifier implements Notifier {
         }
     }
 
-    private String prefix(MessageType messageType) {
-        switch (messageType) {
-            case NONE:
-                return "";
-            case INFO:
-                return "! ";
-            case WARNING:
-                return "∆ ";
-            case ERROR:
-                return "☠ ";
-        }
-        return null;
-    }
 }
