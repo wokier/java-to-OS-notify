@@ -49,7 +49,9 @@ public class GrowlNotifier extends BaseNotifier implements Notifier {
             registerIfNecessary();
 		} catch (IllegalStateException e) {
 			return false;
-		}
+		} catch (UnableToNotifyException ignored) {
+            return false;
+        }
 		return appleScriptEngine != null && registered && isGrowlEnabled();
 	}
 
