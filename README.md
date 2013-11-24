@@ -41,6 +41,13 @@ Release Notes :
  - 0.6 2013-11-24 Bug fixes #2 and #3
  - 0.5 2013-08-28 Growl 1.3 compatibility & MacOsX Notification Center
  - 0.4 2013-06-11 Appengine compatibility & shortcut methods
+ - 
+ 
+---
+
+Used in https://github.com/wokier/progress-maven-plugin
+
+
  - 0.3 2013-03-19 Maven Central Release
  - 0.2 2012-10-12 Bug fixes for Growl and Snarl
  - 0.1 2012-10-05 First Release with 4 different notifiers
