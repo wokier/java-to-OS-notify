@@ -40,7 +40,9 @@ public class OsdNotifier implements Notifier {
 	    break;
 	default:
 	    command.add("-i");
-	    command.add("gtk-dialog-" + messageType.name().toLowerCase());
+        //https://github.com/wokier/java-to-OS-notify/issues/2
+        //command.add("gtk-dialog-" + messageType.name().toLowerCase());
+        command.add("dialog-" + messageType.name().toLowerCase());
 	}
 	command.add(title);
 	command.add(message);
