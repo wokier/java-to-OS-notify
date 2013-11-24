@@ -7,7 +7,7 @@
 	</parent>
 	<groupId>com.github.wokier</groupId>
 	<artifactId>java-to-OS-notify</artifactId>
-	<version>0.6-SNAPSHOT</version>
+	<version>0.6</version>
 	<packaging>jar</packaging>
 	<name>java-to-OS-notify</name>
 	<description>Java to Operating System Notification</description>
