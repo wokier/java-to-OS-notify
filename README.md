@@ -12,20 +12,15 @@ Allows to display a notification which pops and disappears, using the appropriat
 
 Available notifiers :
 
-<pre>
+|                    | Linux  | Windows | Mac OS X |
+|--------------------|:------:|:-------:|:--------:|
+| Notify OSD         | (X)    |         |          |
+| Growl              |        |         | (X)      |
+| Mac OS X Center    |        |         | (X)      |
+| Snarl              |        | (X)     |          |
+| Java 6 System Tray |  X     |  X      |  X       |
+| Java Logging       |  X     |  X      |  X       |
 
-╔══════════════════╦═══════╦════════╦═════════╗
-║                    ║ Linux  ║ Windows ║ Mac OS X ║
-╠══════════════════╬═══════╬════════╬═════════╣
-║ Notify OSD         ║ (X)    ║         ║          ║
-║ Growl              ║        ║         ║ (X)      ║
-║ Mac OS X Center    ║        ║         ║ (X)      ║
-║ Snarl              ║        ║ (X)     ║          ║
-║ Java 6 System Tray ║  X     ║  X      ║  X       ║
-║ Java Logging       ║  X     ║  X      ║  X       ║
-╚══════════════════╩═══════╩════════╩═════════╝
-
-</pre>
 
  - Notify OSD ( Requires notify-send command to Install with 'sudo apt-get install libnotify-bin' or [Download libnotify](http://archive.ubuntu.com/ubuntu/pool/universe/libn/libnotify4/libnotify-bin_0.7.2-0ubuntu2_amd64.deb) )
  - Growl for Mac OS X ( Install from the Apple App Store or [Download Growl](http://growl.info/downloads/) )
