@@ -43,7 +43,9 @@ Release Notes :
 ---
 
 Used in
+
 https://github.com/wokier/progress-maven-plugin
+
 https://github.com/wokier/notify-test-progress
  
 
