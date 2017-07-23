@@ -1,6 +1,33 @@
-/.settings
-/target
+# Eclipse stuff
 /.classpath
 /.project
+/.settings
+
+# netbeans
+/nbproject
+nb*.xml
+
+# Maven :3
+/build.xml
+/target
+dependency-reduced-pom.xml
+
+# vim
+.*.sw[a-p]
+
+# various other potential build files
+/build
+/bin
+/dist
+/manifest.mf
+
+/world
+
+# Mac filesystem dust
+.DS_Store
+
+# intellij
+*.iml
+*.ipr
+*.iws
 .idea/
-java-to-OS-notify.iml
