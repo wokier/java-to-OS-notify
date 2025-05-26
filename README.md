@@ -1,6 +1,8 @@
 java-to-OS-notify
 =================
 
+<ins>⚠ Discontinued project<ins>
+
 Java to Operating System Notification
 
 "Write Once, Notify Everywhere"
